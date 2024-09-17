@@ -20,12 +20,23 @@ export class SeatsPage extends BaseFunctions {
 
     //FUNCTIONS
 select_random_seat = async () => {
-    await this.page.waitForLoadState('networkidle')
-    const index = Math.floor(Math.random() * await this.STANDARD_SEAT_ARRAY.count())
-    await this.click_element(this.STANDARD_SEAT_ARRAY, index)
+    try {
+        //await this.page.waitForTimeout(1000)
+        await this.page.waitForLoadState('domcontentloaded')
+        await this.page.waitForLoadState('networkidle')
+        await this.page.waitForTimeout(1000)
+        const index = Math.floor(Math.random() * await this.STANDARD_SEAT_ARRAY.count())
+        await this.click_element(this.STANDARD_SEAT_ARRAY, index)
 
-    if (await this.SELECT_SAME_SEAT_NO_BUTTON.isVisible()) {
-        await this.click_element(this.SELECT_SAME_SEAT_NO_BUTTON)
+        if (await this.SELECT_SAME_SEAT_NO_BUTTON.isVisible()) {
+            await this.click_element(this.SELECT_SAME_SEAT_NO_BUTTON)
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(`Error selecting random seat: ${error.message}`)
+        } else {
+            throw new Error("Couldn't select random seat")
+        }
     }
 }
 

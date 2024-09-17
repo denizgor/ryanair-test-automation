@@ -70,18 +70,11 @@ export class HomePage extends BaseFunctions {
       }
     }
 
-    click_search_flight_button = async () => {
-        await this.click_element(this.SEARCH_FLIGHT_BUTTON)
-        return new FlightsPage(this.page)
-    }
-
-    set_trip_type_return_trip = async () => {
-        await this.click_element(this.RETURN_TRIP_RADIO_BUTTON)
-    }
-
-    set_trip_type_one_way_trip = async () => {
-        await this.click_element(this.ONE_WAY_TRIP_RADIO_BUTTON)
-    }
+    
+    set_trip_type = async (trip_type: string) => {
+        await this.click_element(trip_type === "Return trip" ? this.RETURN_TRIP_RADIO_BUTTON 
+            : this.ONE_WAY_TRIP_RADIO_BUTTON);
+      }
 
     get_trip_type_text = async (): Promise<string> => {
         
@@ -141,7 +134,11 @@ export class HomePage extends BaseFunctions {
     return totalPassengers
     
     }
-        
+    
+    click_search_flight_button = async () => {
+        await this.click_element(this.SEARCH_FLIGHT_BUTTON)
+        return new FlightsPage(this.page)
+    }    
 
 }
 
