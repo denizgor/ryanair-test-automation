@@ -14,7 +14,7 @@ test.skip('single user logged out basic package ticket journey', async ({ page }
    let departure_airport = 'London Stansted'
    let arrival_city = 'Italy'
    let arrival_airport = 'Milan Bergamo'
-   let trip_type = 'Return trip'
+   let selected_trip_type = 'Return trip' //or "One way trip"
    let passenger_count = 0 
    let departure_day = ''
    let return_day = ''
@@ -22,5 +22,6 @@ test.skip('single user logged out basic package ticket journey', async ({ page }
    let number_of_teens = 0
    let number_of_children = 0
    let number_of_infants = 0
+   let selected_fare_package = 'BASIC' //or 'REGULAR', 'PLUS', 'FLEXI PLUS'
 
 })

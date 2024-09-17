@@ -14,7 +14,7 @@ export class BaseFunctions {
     }
 
     generateRandomIndex = async (locator: Locator) => {
-        await this.page.waitForLoadState('load')
+        await this.page.waitForLoadState('domcontentloaded')
         await this.page.waitForTimeout(1000)
         const count = await locator.count()
         return Math.floor(Math.random() * count)
@@ -33,7 +33,6 @@ export class BaseFunctions {
     get_ticket_price = async (locator: Locator, index: number = 0) => {
         const text = await this.get_element_text(locator, index);
         const floatValue = parseFloat(text.replace(/[^\d.-]/g, ''))
-        console.log("Ticket Price: ", floatValue.toFixed(2))
         return floatValue.toFixed(2)
     }
 
@@ -41,7 +40,6 @@ export class BaseFunctions {
         const integer = await this.page.locator('.price__integers').nth(index).innerText()
         const decimal = await this.page.locator('.price__decimals').nth(index).innerText()
         const cart_total = parseFloat(`${integer}.${decimal}`)
-        console.log("Cart Total: ", cart_total.toFixed(2))
         return cart_total.toFixed(2)
     }
 
@@ -73,10 +71,6 @@ export class BaseFunctions {
         count = elements.length
         const secondIndex = randomInt(0, count - 1)
         const secondElement = elements[secondIndex]
-    
-        console.log(`Selected indices: ${firstIndex}, ${secondIndex}`)
-        console.log(`Selected elements:`, firstElement, secondElement)
-
         await secondElement.click()
     }
 
